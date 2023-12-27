@@ -7,6 +7,7 @@ public class Playermovement : MonoBehaviour
   [SerializeField] float moveSpeed=2f;
   [SerializeField] bool movingRight=true;
   [SerializeField] Transform rayStart;
+    [SerializeField] GameObject CrystalEffect;
   Animator anim;
   Rigidbody rb;
   private GameManager gameManager;
@@ -41,9 +42,18 @@ public class Playermovement : MonoBehaviour
     {
       anim.SetTrigger("isfalling");
     }
+        if (transform.position.y < -2)
+        {
+            gameManager.GameEnd();
+        }
+
   }
   public void Switch()
   {
+        if (!gameManager.gamestarted)
+        {
+            return;
+        }
     movingRight = !movingRight;
     if (movingRight)
     {
@@ -55,5 +65,16 @@ public class Playermovement : MonoBehaviour
     }
    
   }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Crystal")
+        {
+            Destroy(other.gameObject);
+            gameManager.IncreaseScore();
+            Instantiate(CrystalEffect, rayStart.transform.position, Quaternion.identity);
+
+        }
+    }
 
 }
