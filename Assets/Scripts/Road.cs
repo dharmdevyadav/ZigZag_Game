@@ -5,8 +5,9 @@ using UnityEngine;
 public class Road : MonoBehaviour
 {
     public GameObject RoadPrefeb;
-    public float Offset = 0.673f;
+    public float Offset = 0.698f;
     public Vector3 lastpos;
+    public int roadCount=0;
     public void StartBuilding()
     {
         InvokeRepeating("CreatePrefeb", 1f, 0.3f);
@@ -27,5 +28,10 @@ public class Road : MonoBehaviour
         }
         GameObject g=Instantiate(RoadPrefeb,spawnPos,Quaternion.Euler(0,45,0));
         lastpos = g.transform.position;
+        roadCount++;
+        if (roadCount % 5 == 0)
+        {
+            g.transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
 }
