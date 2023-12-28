@@ -14,16 +14,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Highscore.text = "BestScore: " + GetHighScore().ToString();
+        Highscore.text = "Best: " + GetHighScore().ToString();
     }
-   /* public void Start()
-    {
-        scoreText = FindObjectOfType<TextMeshProUGUI>();
-        Highscore=FindObjectOfType<TextMeshProUGUI>();  
-    }*/
+   
     public void GameStarted()
   {
     gamestarted = true;
+        FindObjectOfType<Road>().StartBuilding();
+
   }
 
   private void Update()
@@ -46,7 +44,7 @@ public class GameManager : MonoBehaviour
         if (Score > GetHighScore())
         {
             PlayerPrefs.SetInt("HighScore", Score);
-            Highscore.text ="BestScore: "+Score.ToString();
+            Highscore.text ="Best: "+Score.ToString();
         }
     }
 
